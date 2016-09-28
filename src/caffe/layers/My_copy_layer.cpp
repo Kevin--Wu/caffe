@@ -31,7 +31,7 @@ namespace caffe {
 
 		if(propagate_down[0]){
 			Dtype* bottom_diff=bottom[0]->mutable_cpu_diff();
-			caffe_cpu_axpby(count,change_scale,top_diff,Dtype(0),bottom_diff)
+			caffe_cpu_axpby(count,change_scale,top_diff,Dtype(0),bottom_diff);
 		}
 	}
 
