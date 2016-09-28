@@ -29,10 +29,10 @@ class MyCopyLayer : public NeuronLayer<Dtype> {
     protected:
 		virtual void Forward_cpu(const vector<Blob<Dtype>*>& bottom,
 		    const vector<Blob<Dtype>*>& top);
-		virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom,
+		virtual void Backward_cpu(const vector<Blob<Dtype>*>& bottom,
 		    const vector<Blob<Dtype>*>& top);
 
-		Dtype diff_scale;
+		Dtype change_scale;
 
 };
 
