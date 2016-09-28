@@ -306,7 +306,7 @@ message ParamSpec {
 // NOTE
 // Update the next available ID when you add a new LayerParameter field.
 //
-// LayerParameter next available layer-specific ID: 147 (last added: recurrent_param)
+// LayerParameter next available layer-specific ID: 148 (last added: mycopy_param, added by : KevinWu)
 message LayerParameter {
   optional string name = 1; // the layer name
   optional string type = 2; // the layer type
@@ -403,6 +403,9 @@ message LayerParameter {
   optional ThresholdParameter threshold_param = 128;
   optional TileParameter tile_param = 138;
   optional WindowDataParameter window_data_param = 129;
+
+  //below are the personal parameter, created by KevinWu
+  optional MyCopyParameter mycopy_param = 147;
 }
 
 // Message that stores parameters used to apply transformation
@@ -1396,4 +1399,18 @@ message PReLUParameter {
   optional FillerParameter filler = 1;
   // Whether or not slope paramters are shared across channels.
   optional bool channel_shared = 2 [default = false];
+}
+
+
+
+
+//*******************************************
+//              NOTICE
+// below are the message created by KevinWu
+// NOT in consonance with official edition
+//*******************************************
+
+
+message MyCopyParameter {
+	optional float change_scale = 1 [default = 1];
 }
