@@ -29,8 +29,9 @@ class MyCopyLayer : public NeuronLayer<Dtype> {
     protected:
 		virtual void Forward_cpu(const vector<Blob<Dtype>*>& bottom,
 		    const vector<Blob<Dtype>*>& top);
-		virtual void Backward_cpu(const vector<Blob<Dtype>*>& bottom,
-		    const vector<Blob<Dtype>*>& top);
+		void Backward_cpu(const vector<Blob<Dtype>*>& top,
+		  const vector<bool>& propagate_down,
+	      const vector<Blob<Dtype>*>& bottom)
 
 		Dtype change_scale;
 
