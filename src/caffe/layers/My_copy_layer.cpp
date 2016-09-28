@@ -22,8 +22,9 @@ namespace caffe {
 	}
 
 	template <typename Dtype>
-	void MyCopyLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& bottom,
-	      const vector<Blob<Dtype>*>& top){
+	void MyCopyLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
+		  const vector<bool>& propagate_down,
+	      const vector<Blob<Dtype>*>& bottom){
 		const int count=top[0]->count();
 		const Dtype* top_diff = top[0]->cpu_diff();
 		change_scale=this->layer_param_.mycopy_param().change_scale();
