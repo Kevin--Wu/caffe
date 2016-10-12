@@ -7,7 +7,7 @@ EXAMPLE=mywork/mnist
 DATA=data/mymnist
 TOOLS=build/tools
 
-TRAIN_DATA_ROOT=data/mymnist/mnist_train
+TRAIN_DATA_ROOT=data/mymnist/mnist_train/
 
 # Set RESIZE=true to resize the images to 28*28. Leave as false if images have
 # already been resized using another tool.
