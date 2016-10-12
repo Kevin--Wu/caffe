@@ -38,7 +38,7 @@ GLOG_logtostderr=1 $TOOLS/convert_imageset \
     --shuffle \
     $TRAIN_DATA_ROOT \
     $DATA/train.txt \
-    $EXAMPLE/mnist_train_lmdb
+    $EXAMPLE/mymnist_train_lmdb
 
 
 echo "Done."
