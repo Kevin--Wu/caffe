@@ -20,6 +20,7 @@ else
   RESIZE_WIDTH=0
 fi
 
+
 if [ ! -d "$TRAIN_DATA_ROOT" ]; then
   echo "Error: TRAIN_DATA_ROOT is not a path to a directory: $TRAIN_DATA_ROOT"
   echo "Set the TRAIN_DATA_ROOT variable in create_imagenet.sh to the path" \
@@ -27,7 +28,9 @@ if [ ! -d "$TRAIN_DATA_ROOT" ]; then
   exit 1
 fi
 
+
 echo "Creating train lmdb..."
+
 
 GLOG_logtostderr=1 $TOOLS/convert_imageset \
     --resize_height=$RESIZE_HEIGHT \
@@ -35,6 +38,7 @@ GLOG_logtostderr=1 $TOOLS/convert_imageset \
     --shuffle \
     $TRAIN_DATA_ROOT \
     $DATA/train.txt \
-    $EXAMPLE/mymnist_train_lmdb
+    $EXAMPLE/mnist_train_lmdb
+
 
 echo "Done."
