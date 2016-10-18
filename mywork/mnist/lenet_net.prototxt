@@ -1,9 +1,9 @@
-name: "LeNet"
-layer {
-  name: "mnist"
+name: "mymnist"
+layer{
+  name: "train_data"
   type: "Data"
-  top: "data"
-  top: "label"
+  top:  "data"
+  top:  "label"
   include {
     phase: TRAIN
   }
@@ -16,8 +16,8 @@ layer {
     backend: LMDB
   }
 }
-layer {
-  name: "mnist"
+layer{
+  name: "test_data"
   type: "Data"
   top: "data"
   top: "label"
@@ -29,15 +29,49 @@ layer {
   }
   data_param {
     source: "mywork/mnist/mymnist_test_lmdb"
-    batch_size: 100
+    batch_size: 64
     backend: LMDB
   }
 }
-layer {
+layer{
   name: "conv1"
   type: "Convolution"
   bottom: "data"
-  top: "conv1"
+  top: "conv1_data"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 6
+    kernel_size: 5
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+    stride: 1
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1_data"
+  top: "pool1_data"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2 
+    stride: 2      
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "pool1_data"
+  top: "conv2_data"
   param {
     lr_mult: 1
   }
@@ -47,65 +81,32 @@ layer {
   convolution_param {
     num_output: 20
     kernel_size: 5
-    stride: 1
     weight_filler {
       type: "xavier"
     }
     bias_filler {
       type: "constant"
     }
-  }
-}
-layer {
-  name: "pool1"
-  type: "Pooling"
-  bottom: "conv1"
-  top: "pool1"
-  pooling_param {
-    pool: MAX
-    kernel_size: 2
-    stride: 2
-  }
-}
-layer {
-  name: "conv2"
-  type: "Convolution"
-  bottom: "pool1"
-  top: "conv2"
-  param {
-    lr_mult: 1
-  }
-  param {
-    lr_mult: 2
-  }
-  convolution_param {
-    num_output: 50
-    kernel_size: 5
     stride: 1
-    weight_filler {
-      type: "xavier"
-    }
-    bias_filler {
-      type: "constant"
-    }
+    group: 2
   }
 }
 layer {
   name: "pool2"
   type: "Pooling"
-  bottom: "conv2"
-  top: "pool2"
+  bottom: "conv2_data"
+  top: "pool2_data"
   pooling_param {
     pool: MAX
-    kernel_size: 2
-    stride: 2
+    kernel_size: 2 
+    stride: 2      
   }
 }
 layer {
   name: "ip1"
   type: "InnerProduct"
-  bottom: "pool2"
-  top: "ip1"
+  bottom: "pool2_data"
+  top: "ip1_data"
   param {
     lr_mult: 1
   }
@@ -113,7 +114,7 @@ layer {
     lr_mult: 2
   }
   inner_product_param {
-    num_output: 500
+    num_output: 50
     weight_filler {
       type: "xavier"
     }
@@ -125,14 +126,14 @@ layer {
 layer {
   name: "relu1"
   type: "ReLU"
-  bottom: "ip1"
-  top: "ip1"
+  bottom: "ip1_data"
+  top: "ip1_data"
 }
 layer {
   name: "ip2"
   type: "InnerProduct"
-  bottom: "ip1"
-  top: "ip2"
+  bottom: "ip1_data"
+  top: "ip2_data"
   param {
     lr_mult: 1
   }
@@ -150,19 +151,43 @@ layer {
   }
 }
 layer {
+  name: "loss"
+  type: "SoftmaxWithLoss"
+  bottom: "ip2_data"
+  bottom: "label"
+  top: "loss"
+}
+layer {
   name: "accuracy"
   type: "Accuracy"
-  bottom: "ip2"
+  bottom: "ip2_data"
   bottom: "label"
   top: "accuracy"
   include {
     phase: TEST
   }
 }
-layer {
-  name: "loss"
-  type: "SoftmaxWithLoss"
-  bottom: "ip2"
-  bottom: "label"
-  top: "loss"
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
