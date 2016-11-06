@@ -227,8 +227,11 @@ layers {
 layers {
   bottom: "fc7"
   top: "fc8"
-  name: "fc8"
+  name: "hmdb_fc8"
   type: INNER_PRODUCT
+  param {
+    lr_mult: 100
+  }
   inner_product_param {
     num_output: 51
   }
