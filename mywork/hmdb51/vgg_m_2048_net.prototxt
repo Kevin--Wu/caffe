@@ -232,6 +232,9 @@ layers {
   param {
     lr_mult: 100
   }
+  param {
+    lr_mult: 100
+  }
   inner_product_param {
     num_output: 51
   }
