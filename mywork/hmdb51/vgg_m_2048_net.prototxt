@@ -195,11 +195,11 @@ layers {
     dropout_ratio: 0.5
   }
 }
-layers {
+layer {
   bottom: "fc7"
   top: "fc8"
   name: "fc8_hmdb"
-  type: INNER_PRODUCT
+  type: "InnerProduct"
   param {
     lr_mult: 100
   }
