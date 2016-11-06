@@ -1,38 +1,9 @@
-name: "hmdb_VGG_CNN_M_2048"
-layer{
-  name: "train_data"
-  type: "Data"
-  top:  "data"
-  top:  "label"
-  include {
-    phase: TRAIN
-  }
-  transform_param {
-    scale: 0.00390625
-  }
-  data_param {
-    source: "/home/hadoop/whx/dataset/hmdb/jpg_output/hmdb51_train_lmdb/split1"
-    batch_size: 64
-    backend: LMDB
-  }
-}
-layer{
-  name: "test_data"
-  type: "Data"
-  top: "data"
-  top: "label"
-  include {
-    phase: TEST
-  }
-  transform_param {
-    scale: 0.00390625
-  }
-  data_param {
-    source: "/home/hadoop/whx/dataset/hmdb/jpg_output/hmdb51_val_lmdb/split1"
-    batch_size: 64
-    backend: LMDB
-  }
-}
+name: "VGG_CNN_M_2048"
+input: "data"
+input_dim: 10
+input_dim: 3
+input_dim: 224
+input_dim: 224
 layers {
   bottom: "data"
   top: "conv1"
@@ -227,7 +198,7 @@ layers {
 layers {
   bottom: "fc7"
   top: "fc8"
-  name: "hmdb_fc8"
+  name: "fc8_hmdb"
   type: INNER_PRODUCT
   param {
     lr_mult: 100
@@ -239,20 +210,9 @@ layers {
     num_output: 51
   }
 }
-layer {
-  name: "loss"
-  type: "SoftmaxWithLoss"
+layers {
   bottom: "fc8"
-  bottom: "label"
-  top: "loss"
-}
-layer {
-  name: "accuracy"
-  type: "Accuracy"
-  bottom: "fc8"
-  bottom: "label"
-  top: "accuracy"
-  include {
-    phase: TEST
-  }
+  top: "prob"
+  name: "prob"
+  type: SOFTMAX
 }
