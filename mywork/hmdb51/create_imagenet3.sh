@@ -15,8 +15,8 @@ VAL_DATA_ROOT=~/whx/dataset/hmdb/hmdb51_jpg_split/$SPLIT/val/
 # already been resized using another tool.
 RESIZE=true;
 if $RESIZE; then
-  RESIZE_HEIGHT=256
-  RESIZE_WIDTH=256
+  RESIZE_HEIGHT=224
+  RESIZE_WIDTH=224
 else
   RESIZE_HEIGHT=0
   RESIZE_WIDTH=0
@@ -56,4 +56,4 @@ GLOG_logtostderr=1 $TOOLS/convert_imageset \
     $DATA/test.txt \
     $EXAMPLE/hmdb51_val_lmdb/$SPLIT/
 
-echo "Done."
+echo "split3 Done."
