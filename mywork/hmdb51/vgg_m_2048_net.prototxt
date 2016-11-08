@@ -238,9 +238,10 @@ layer {
 }
 layer {
   bottom: "fc8"
-  top: "prob"
-  name: "prob"
-  type: "Softmax"
+  bottom: "label"
+  top: "loss"
+  name: "loss"
+  type: "SoftmaxWithLoss"
 }
 layer {
   name: "accuracy"
