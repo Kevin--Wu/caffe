@@ -123,6 +123,7 @@ layer {
     num_output: 512
     pad: 1
     kernel_size: 3
+    stride: 1
   }
 }
 layer {
@@ -140,6 +141,7 @@ layer {
     num_output: 512
     pad: 1
     kernel_size: 3
+    stride: 1
   }
 }
 layer {
@@ -157,6 +159,7 @@ layer {
     num_output: 512
     pad: 1
     kernel_size: 3
+    stride: 1
   }
 }
 layer {
@@ -229,22 +232,15 @@ layer {
   top: "fc8"
   name: "fc8_hmdb"
   type: "InnerProduct"
-  param {
-    lr_mult: 100
-  }
-  param {
-    lr_mult: 100
-  }
   inner_product_param {
     num_output: 51
   }
 }
 layer {
-  name: "loss"
-  type: "SoftmaxWithLoss"
   bottom: "fc8"
-  bottom: "label"
-  top: "loss"
+  top: "prob"
+  name: "prob"
+  type: "Softmax"
 }
 layer {
   name: "accuracy"
