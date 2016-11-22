@@ -9,17 +9,9 @@ layer {
   }
   transform_param {
     mirror: true
-    crop_size: 227
+    crop_size: 224
     mean_file: "mywork/ucf101/imagenet_mean.binaryproto"
   }
-# mean pixel / channel-wise mean instead of mean image
-#  transform_param {
-#    crop_size: 227
-#    mean_value: 104
-#    mean_value: 117
-#    mean_value: 123
-#    mirror: true
-#  }
   data_param {
     source: "/home/hadoop/whx/dataset/ucf101/jpgoutput/split1/ucf101_train_lmdb"
     batch_size: 256
@@ -36,17 +28,9 @@ layer {
   }
   transform_param {
     mirror: false
-    crop_size: 227
+    crop_size: 224
     mean_file: "mywork/ucf101/imagenet_mean.binaryproto"
   }
-# mean pixel / channel-wise mean instead of mean image
-#  transform_param {
-#    crop_size: 227
-#    mean_value: 104
-#    mean_value: 117
-#    mean_value: 123
-#    mirror: false
-#  }
   data_param {
     source: "/home/hadoop/whx/dataset/ucf101/jpgoutput/split1/ucf101_val_lmdb"
     batch_size: 50
@@ -370,7 +354,7 @@ layer {
     decay_mult: 0
   }
   inner_product_param {
-    num_output: 1000
+    num_output: 101
     weight_filler {
       type: "gaussian"
       std: 0.01
